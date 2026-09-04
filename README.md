@@ -1,5 +1,10 @@
 # Splunk.conf26
-Companion material for Splunk .conf26
+Companion material for Splunk .conf26 Session Dev1419
+
+## Presenters:
+* Jason Conger
+* Simon Ric-Hansen
+* Jason Green
 
 # Download Visual Studio Code and Extension
 * [code.visualstudio.com](https://code.visualstudio.com/)
