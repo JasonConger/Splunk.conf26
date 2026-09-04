@@ -7,3 +7,6 @@ Companion material for Splunk .conf26
 
 # Splunk Universal Configuration Console (UCC)
 * [Documentation](https://splunk.github.io/addonfactory-ucc-generator/)
+
+# Splunk Skills
+* [Blog: Introducing Splunk Agent Skills: Portable Splunk Expertise for Your AI Agents](https://www.splunk.com/en_us/blog/artificial-intelligence/introducing-splunk-agent-skills.html)
