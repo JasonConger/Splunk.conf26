@@ -16,7 +16,7 @@ Install this on your Splunk instance to enable the Visual Studio Code extension 
 
 ## Repo of Splunk .spec files
 Shout out to [David Twersky](https://www.linkedin.com/in/david-twersky-47106455)!
-* [https://github.com/jewnix/splunk-spec-files](https://github.com/jewnix/splunk-spec-files)
+* [https://github.com/jewnix/splunk-spec-files](https://github.com/jewnix/splunk-spec-files) - check out the [Releases](https://github.com/jewnix/splunk-spec-files/releases) area for previous versions.
 
 # Splunk Universal Configuration Console (UCC)
 * [Documentation](https://splunk.github.io/addonfactory-ucc-generator/)
