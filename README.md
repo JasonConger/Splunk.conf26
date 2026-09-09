@@ -9,6 +9,7 @@ Companion material for Splunk .conf26 Session Dev1419
 # Download Visual Studio Code and Extension
 * [Visual Studio Code](https://code.visualstudio.com/) - cross platform, free, extensible
 * [Splunk Extension used in the session](https://marketplace.visualstudio.com/items?itemName=Splunk.splunk) - for building and debugging
+    * :book: [Documentation Wiki](https://github.com/splunk/vscode-extension-splunk/wiki)
 * [All official Splunk Extensions](https://marketplace.visualstudio.com/publishers/Splunk) - all the Splunk extensions for Visual Studio Code
 
 ## Splunk Add-on for Microsoft Visual Studio Code
@@ -21,7 +22,7 @@ Install this on your Splunk instance to enable the Visual Studio Code extension 
 
 # Splunk Universal Configuration Console (UCC)
 Universal Configuration Console (UCC) is a framework that simplifies the process of add-on creation for developers.
-* [Documentation](https://splunk.github.io/addonfactory-ucc-generator/)
+* :book: [Documentation](https://splunk.github.io/addonfactory-ucc-generator/)
 
 # Splunk Skills
 * [Blog: Introducing Splunk Agent Skills: Portable Splunk Expertise for Your AI Agents](https://www.splunk.com/en_us/blog/artificial-intelligence/introducing-splunk-agent-skills.html)
