@@ -16,7 +16,7 @@ Install this on your Splunk instance to enable the Visual Studio Code extension 
 * [https://splunkbase.splunk.com/app/4801](https://splunkbase.splunk.com/app/4801)
 
 ## Repo of Splunk .spec files
-Shout out to [David Twersky](https://www.linkedin.com/in/david-twersky-47106455)!
+:mega: Shout out to [David Twersky](https://www.linkedin.com/in/david-twersky-47106455)!
 * [https://github.com/jewnix/splunk-spec-files](https://github.com/jewnix/splunk-spec-files) - check out the [Releases](https://github.com/jewnix/splunk-spec-files/releases) area for previous versions.
 
 # Splunk Universal Configuration Console (UCC)
@@ -27,7 +27,6 @@ Universal Configuration Console (UCC) is a framework that simplifies the process
 * [Blog: Introducing Splunk Agent Skills: Portable Splunk Expertise for Your AI Agents](https://www.splunk.com/en_us/blog/artificial-intelligence/introducing-splunk-agent-skills.html)
 
 # Splunk Custom Visualizations
-
-Shout out to [Robert Castley](https://www.linkedin.com/in/robertcastley/) for his work on this!
+:mega: Shout out to [Robert Castley](https://www.linkedin.com/in/robertcastley/) for his work on this!
 
 * [https://github.com/rcastley/splunk-custom-visualizations](https://github.com/rcastley/splunk-custom-visualizations) - build Canvas 2D custom visualizations for both the legacy Splunk visualization framework and the native Dashboard Studio extension framework
