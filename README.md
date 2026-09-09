@@ -14,6 +14,10 @@ Companion material for Splunk .conf26 Session Dev1419
 Install this on your Splunk instance to enable the Visual Studio Code extension to connect to, control, and debug your code
 * [https://splunkbase.splunk.com/app/4801](https://splunkbase.splunk.com/app/4801)
 
+## Repo of Splunk .spec files
+Shout out to [David Twersky](https://www.linkedin.com/in/david-twersky-47106455)!
+* [https://github.com/jewnix/splunk-spec-files](https://github.com/jewnix/splunk-spec-files)
+
 # Splunk Universal Configuration Console (UCC)
 * [Documentation](https://splunk.github.io/addonfactory-ucc-generator/)
 
