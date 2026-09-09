@@ -7,8 +7,9 @@ Companion material for Splunk .conf26 Session Dev1419
 * [Jason Green](https://www.linkedin.com/in/jason-t-green/)
 
 # Download Visual Studio Code and Extension
-* [code.visualstudio.com](https://code.visualstudio.com/) - cross platform, free, extensible
-* [Official Splunk Extensions](https://marketplace.visualstudio.com/publishers/Splunk) - all the Splunk extensions for Visual Studio Code
+* [Visual Studio Code](https://code.visualstudio.com/) - cross platform, free, extensible
+* [Splunk Extension used in the session](https://marketplace.visualstudio.com/items?itemName=Splunk.splunk) for building and debugging
+* [All official Splunk Extensions](https://marketplace.visualstudio.com/publishers/Splunk) - all the Splunk extensions for Visual Studio Code
 
 ## Splunk Add-on for Microsoft Visual Studio Code
 Install this on your Splunk instance to enable the Visual Studio Code extension to connect to, control, and debug your code
