@@ -90,3 +90,27 @@ Here is the exact prompt I used to build a Splunk add-on with `ucc-gen`
 </details>
 
 :clock1: Total time to build the add-on from scratch - **2:49**
+
+## :warning: Python Version Warning
+If your Python version is 3.14.0 or above, the `.venv` environment created will not pull in the correct version of `ucc-gen`.  We need version `ucc-gen 6.6.0` for our demos, and the check.
+
+<details>
+<summary>What you might see trying to install ucc-gen 6.6.0 with Python 3.14.n</summary>
+  
+> ERROR: Ignored the following versions that require a different python version: 5.53.0 Requires-Python >=3.7,<3.13; 5.53.1 Requires-Python >=3.7,<3.13; 5.53.2 Requires-Python >=3.7,<3.13; 5.54.0 Requires-Python >=3.7,<3.13; 5.55.0 Requires-Python >=3.7,<3.13; 5.56.0 Requires-Python >=3.7,<3.14; 5.57.0 Requires-Python >=3.7,<3.14; 5.57.1 Requires-Python >=3.7,<3.14; 5.57.2 Requires-Python >=3.7,<3.14; 5.58.0 Requires-Python >=3.7,<3.14; 5.58.1 Requires-Python >=3.7,<3.14; 5.59.0 Requires-Python >=3.7,<3.14; 5.60.0 Requires-Python >=3.7,<3.14; 5.61.0 Requires-Python >=3.7,<3.14; 5.62.0 Requires-Python >=3.7,<3.14; 5.63.0 Requires-Python >=3.7,<3.14; 5.64.0 Requires-Python >=3.7,<3.14; 5.65.0 Requires-Python >=3.7,<3.14; 5.66.0 Requires-Python >=3.7,<3.14; 5.67.0 Requires-Python >=3.7,<3.14; 5.68.0 Requires-Python >=3.7,<3.14; 5.68.1 Requires-Python >=3.7,<3.14; 5.69.0 Requires-Python >=3.7,<3.14; 5.69.1 Requires-Python >=3.7,<3.14; 5.70.0 Requires-Python >=3.9,<3.14; 5.70.0rc1 Requires-Python >=3.9,<3.14; 6.0.0 Requires-Python >=3.9,<3.14; 6.0.0a1 Requires-Python >=3.9,<3.14; 6.0.0rc1 Requires-Python >=3.9,<3.14; 6.0.1 Requires-Python >=3.9,<3.14; 6.1.0 Requires-Python >=3.9,<3.14; 6.2.0 Requires-Python >=3.9,<3.14; 6.3.0 Requires-Python >=3.9,<3.14; 6.4.0 Requires-Python >=3.9,<3.14; 6.5.0 Requires-Python >=3.9,<3.14; 6.5.1 Requires-Python >=3.9,<3.14; 6.5.2 Requires-Python >=3.9,<3.14; 6.5.3 Requires-Python >=3.9,<3.14; **6.6.0 Requires-Python >=3.9,<3.14**
+> 
+> ERROR: Could not find a version that satisfies the requirement splunk_add_on_ucc_framework==6.6.0 (from versions: 4.0.2, 4.0.4, 4.0.8, 4.0.10, 4.1.2, 4.1.3, 4.1.5, 4.1.7, 4.1.10, 4.1.11, 4.1.12, 4.2.0, 4.2.1, 4.2.2, 4.2.3, 4.2.4, 4.3.0, 4.4.0, 4.5.0, 5.0.0, 5.0.1, 5.0.2, 5.0.3, 5.1.0, 5.2.0, 5.2.1, 5.3.0, 5.3.1, 5.3.2, 5.3.3, 5.3.4, 5.4.0, 5.4.1, 5.4.2, 5.4.3, 5.5.0, 5.5.1, 5.5.2, 5.5.3, 5.5.4, 5.5.5, 5.5.6, 5.5.7, 5.5.8, 5.5.9, 5.6.0, 5.6.1, 5.6.2, 5.7.0, 5.8.0, 5.8.1, 5.8.2, 5.9.0, 5.10.0, 5.10.1, 5.10.2, 5.10.3, 5.10.4, 5.11.0, 5.12.0, 5.13.0, 5.13.2, 5.14.0, 5.14.1, 5.14.2, 5.15.0, 5.15.1, 5.16.0, 5.16.1, 5.17.0, 5.17.1, 5.18.0, 5.19.0, 5.20.0, 5.21.0, 5.22.0, 5.23.0, 5.23.1, 5.23.2, 5.24.0, 5.25.0, 5.26.0, 5.27.0, 5.27.1, 5.27.2, 5.27.3, 5.28.0, 5.28.1, 5.28.2, 5.28.3, 5.28.4, 5.28.5, 5.28.6, 5.29.0, 5.30.0, 5.31.0b1, 5.31.0, 5.31.1b1, 5.31.1, 5.32.0, 5.33.0, 5.34.0, 5.34.1, 5.35.0, 5.35.1, 5.36.0, 5.36.1, 5.36.2, 5.37.0, 5.38.0, 5.39.0, 5.39.1, 5.40.0, 5.41.0, 5.42.0, 5.42.1, 5.43.0, 5.44.0, 5.45.0, 5.46.0, 5.47.0, 5.48.0, 5.48.1, 5.48.2, 5.49.0, 5.50.0, 5.50.1, 5.51.0, 5.51.1, 5.52.0, 6.0.0b1, 6.0.0b2)
+> 
+> ERROR: No matching distribution found for splunk_add_on_ucc_framework==6.6.0
+
+</details>
+
+## (Optional) Create a symbolic link from output/splunk_conf26_demo $SPLUNK_HOME/etc/apps
+
+`ln -s <source> <destination>`
+
+Real example (from my Mac):
+
+`ln -s ~/Dev/Splunk.conf26/output/splunk_conf26_demo /Applications/Splunk/etc/apps/splunk_conf26_demo`
+
+I like to create the symbolic link so that the source code can live in a repo outside of my Splunk install.  You could have your AI agent do this, but it is simple enough to not burn more tokens :smile:
