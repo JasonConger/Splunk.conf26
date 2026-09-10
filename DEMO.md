@@ -120,10 +120,46 @@ If your Python version is 3.14.0 or above, the `.venv` environment created will 
 
 ## (Optional) Create a symbolic link from output/splunk_conf26_demo $SPLUNK_HOME/etc/apps
 
+I like to create a symbolic link so that the source code can live in a repo outside of my Splunk install. You could have your AI agent do this, but it is simple enough to not burn more tokens :smile:  
+
+Also, this way you don't have to copy/paste the contents of the `output` directory over and over as you build.
+
+Example:
+
 `ln -s <source> <destination>`
 
 Real example (from my Mac):
 
 `ln -s ~/Dev/Splunk.conf26/output/splunk_conf26_demo /Applications/Splunk/etc/apps/splunk_conf26_demo`
 
-I like to create the symbolic link so that the source code can live in a repo outside of my Splunk install.  You could have your AI agent do this, but it is simple enough to not burn more tokens :smile:
+## View the UI `ucc-gen` created in VSCode
+
+The UI for UCC add-ons is defined in a file named `globalConfig.json`.  It isn't horrible to read the json, but right-click on the file in VSCode, choose "Preview globalConfig.json" to see changes in real time as you make changes
+
+![Preview globalConfig.json](images/preview_globalConfig.png)
+
+## Add a field to the input
+
+The UI for the field is done in `globalConfig.json`, but the wiring for the field is in the input's Python.
+
+### Method 1 - just type it in
+The JSON will validate as you type, and you can [follow along with the docs](https://splunk.github.io/addonfactory-ucc-generator/) on what goes where.
+
+### Method 2 - use a snippet
+The VSCode extension ships with several snippets you can use in `globalConfig.json`.  Just start typing one of the following, and a scaffold will be created for the field (entity):
+
+* `entity-text` creates a text box
+* `entity-checkbox` creates a checkbox (who would have thought? :shrug:)
+* `entity-radio` you get the gist by now
+* `entity-single-select`
+* `entity-multi-select`
+* `entity-help-link`
+
+Both Method 1 and Method 2 require that you edit the matching Python file for the input.
+
+### Method 3 - use a skill
+The VSCode extension ships with a skill to create these fields/entities.  The plus side here is that it will wire up the Python for you too!
+
+
+
+
