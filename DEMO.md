@@ -1,6 +1,8 @@
-Starter prompt:
+# Starter prompt:
 
-Model used: Claude Sonnet 5 (High)
+>> Model used: Claude Sonnet 5 (High)
+
+Here is the exact prompt I used to build a Splunk add-on with `ucc-gen`
 
 > using the documentation located at https://splunk.github.io/addonfactory-ucc-generator/ create a Splunk add-on for me
 
