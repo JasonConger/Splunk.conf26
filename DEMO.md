@@ -13,6 +13,7 @@ using the documentation located at https://splunk.github.io/addonfactory-ucc-gen
 
   ---
 
+```
   User: using the documentation located at https://splunk.github.io/addonfactory-ucc-generator/ create a Splunk add-on for me
   GitHub Copilot: Updated todo list
   
@@ -76,25 +77,35 @@ using the documentation located at https://splunk.github.io/addonfactory-ucc-gen
   - Updated `.gitignore` to exclude `output`, `.tar.gz` packages, and `.venv`
   
   To customize inputs/fields, edit `globalConfig.json`, then rebuild with:
-  ```
+  
   source .venv/bin/activate
   ucc-gen build --source splunk_conf26_demo/package --ta-version 1.0.0
   ucc-gen package --path output/splunk_conf26_demo
-  ```
+  
   
   Install the `.tar.gz` in your Splunk instance via **Manage Apps → Install app from file**.
   
   Completed: *Set up UCC and generate add-on* (1/4)
   
   Made changes.
-  
+
+ ```
+ 
   ---
 </details>
 
 :clock1: Total time to build the add-on from scratch - **2:49**
 
+Notice some things that happened:
+* Created a virtual environment
+* Installed `ucc-gen` in the environment
+* Built the add-on
+* Packaged the add-on
+* Updated `.gitignore` to ensure the `output` directory, `.venv` directory, and and resulting `tar.gz` distribution package are not checked into Git source control
+* Gave instructions for next steps
+
 ## :warning: Python Version Warning
-If your Python version is 3.14.0 or above, the `.venv` environment created will not pull in the correct version of `ucc-gen`.  We need version `ucc-gen 6.6.0` for our demos, otherwise you may get some `<TypeError>` messages.
+If your Python version is 3.14.0 or above, the `.venv` environment created will not pull in the correct version of `ucc-gen`.  We need version `ucc-gen 6.6.0` for our demos.  If your Python version is 3.14.n, you won't get the right `ucc-gen` version and will get some `<TypeError>` messages when trying to use the add-on in Splunk.
 
 <details>
 <summary>What you might see trying to install ucc-gen 6.6.0 with Python 3.14.n</summary>
