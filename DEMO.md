@@ -155,6 +155,8 @@ The VSCode extension ships with several snippets you can use in `globalConfig.js
 * `entity-multi-select`
 * `entity-help-link`
 
+![Entity Snippet](images/input_entity.png)
+
 Both Method 1 and Method 2 require that you edit the matching Python file for the input.
 
 ### Method 3 - use a skill
