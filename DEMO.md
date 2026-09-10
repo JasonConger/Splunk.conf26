@@ -2,7 +2,9 @@
 
 Here is the exact prompt I used to build a Splunk add-on with `ucc-gen`
 
-> using the documentation located at https://splunk.github.io/addonfactory-ucc-generator/ create a Splunk add-on for me
+```
+using the documentation located at https://splunk.github.io/addonfactory-ucc-generator/ create a Splunk add-on for me
+```
 
 :bulb: Note: The model I used was `Claude Sonnet 5 (High)`
 
