@@ -94,7 +94,7 @@ using the documentation located at https://splunk.github.io/addonfactory-ucc-gen
 :clock1: Total time to build the add-on from scratch - **2:49**
 
 ## :warning: Python Version Warning
-If your Python version is 3.14.0 or above, the `.venv` environment created will not pull in the correct version of `ucc-gen`.  We need version `ucc-gen 6.6.0` for our demos, and the check.
+If your Python version is 3.14.0 or above, the `.venv` environment created will not pull in the correct version of `ucc-gen`.  We need version `ucc-gen 6.6.0` for our demos, otherwise you may get some `<TypeError>` messages.
 
 <details>
 <summary>What you might see trying to install ucc-gen 6.6.0 with Python 3.14.n</summary>
