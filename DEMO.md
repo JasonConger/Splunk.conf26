@@ -174,6 +174,10 @@ The VSCode extension ships with a skill to create these fields/entities.
 add a new field to the test_input
 ```
 
+The skill will load and ask you questions about how you want the field to be created (text field, checkbox, select, etc.).
+
+Keep chatting in natural language, and the skill will do their thing...
+
 ```
 add a validator to the new field
 ```
@@ -182,8 +186,25 @@ add a validator to the new field
 build the add-on
 ```
 
-The skill will load and ask you questions about how you want the field to be created (text field, checkbox, select, etc.).
+Or, build the add-on without burning up tokens
 
+```
+ucc-gen build --source splunk_conf26_demo/package --ta-version 1.0.0
+```
+
+# Add a new input to the add-on
+
+We are going to tell the agent about a REST endpoint and have the skills do the rest (pun intended).
+
+#### Sample prompt:
+
+```
+There is a a REST endpoint located at https://jsonplaceholder.typicode.com/posts that returns an array of posts.
+I want you to create a new input in this add-on to ingest the data from this endpoint and index the data in Splunk.
+Ask me any clarifying questions.
+```
+
+![Input interview](images/input_interview.png)
 
 
 
