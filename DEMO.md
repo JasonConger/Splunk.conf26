@@ -107,6 +107,13 @@ Notice some things that happened:
 ## :warning: Python Version Warning
 If your Python version is 3.14.0 or above, the `.venv` environment created will not pull in the correct version of `ucc-gen`.  We need version `ucc-gen 6.6.0` for our demos.  If your Python version is 3.14.n, you won't get the right `ucc-gen` version and will get some `<TypeError>` messages when trying to use the add-on in Splunk.
 
+Try this:
+
+```
+python3.13 -m venv .venv
+source .venv/bin/activate
+```
+
 <details>
 <summary>What you might see trying to install ucc-gen 6.6.0 with Python 3.14.n</summary>
   
@@ -155,10 +162,28 @@ The VSCode extension ships with several snippets you can use in `globalConfig.js
 * `entity-multi-select`
 * `entity-help-link`
 
-Both Method 1 and Method 2 require that you edit the matching Python file for the input.
+![Entity Snippet](images/input_entity.png)
+
 
 ### Method 3 - use a skill
-The VSCode extension ships with a skill to create these fields/entities.  The plus side here is that it will wire up the Python for you too!
+The VSCode extension ships with a skill to create these fields/entities.
+
+#### Sample prompts
+
+```
+add a new field to the test_input
+```
+
+```
+add a validator to the new field
+```
+
+```
+build the add-on
+```
+
+The skill will load and ask you questions about how you want the field to be created (text field, checkbox, select, etc.).
+
 
 
 
