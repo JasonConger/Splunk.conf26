@@ -176,7 +176,7 @@ add a new field to the test_input
 
 The skill will load and ask you questions about how you want the field to be created (text field, checkbox, select, etc.).
 
-Keep chatting in natural language, and the skill will do their thing...
+Keep chatting in natural language, and the skills will do their thing...
 
 ```
 add a validator to the new field
@@ -216,8 +216,8 @@ https://splunkbase.splunk.com/app/4801
 ## Open the folder of the thing you want to debug in $SPLUNK_HOME/etc/apps
 This is a bit of a weird step, but hang with me for a sec...
 
-* From a new VSCode instance/window, select File > Open Folder
-* Browse to $SPLUNK_HOME/etc/apps/splunk_conf26_demo
+* From a new VSCode instance/window, select `File > Open Folder`
+* Browse to `$SPLUNK_HOME/etc/apps/splunk_conf26_demo`
 
 :warning: If you open the files directly instead of the folder, it isn't going to work.  The reason is that the Splunk Add-on for Visual Studio Code needs to add a debug configuration in the root of your add-ons folder.
 
