@@ -113,6 +113,53 @@
                     ],
                     "inputHelperModule": "test_input_helper",
                     "title": "test_input"
+                },
+                {
+                    "name": "fake_rest_posts",
+                    "entity": [
+                        {
+                            "type": "text",
+                            "label": "Name",
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Input Name must begin with a letter and consist exclusively of alphanumeric characters and underscores.",
+                                    "pattern": "^[a-zA-Z]\\w*$"
+                                },
+                                {
+                                    "type": "string",
+                                    "errorMsg": "Length of input name should be between 1 and 100",
+                                    "minLength": 1,
+                                    "maxLength": 100
+                                }
+                            ],
+                            "field": "name",
+                            "help": "A unique name for the data input.",
+                            "required": true
+                        },
+                        {
+                            "type": "interval",
+                            "label": "Interval",
+                            "defaultValue": "300",
+                            "field": "interval",
+                            "options": {
+                                "range": [
+                                    10,
+                                    31536000
+                                ]
+                            },
+                            "help": "Time interval of the data input, in seconds.",
+                            "required": true
+                        },
+                        {
+                            "type": "index",
+                            "field": "index",
+                            "label": "Index"
+                        }
+                    ],
+                    "inputHelperModule": "fake_rest_posts_helper",
+                    "title": "Fake REST Posts",
+                    "description": "Ingests posts from the JSONPlaceholder fake REST API (https://jsonplaceholder.typicode.com/posts)."
                 }
             ],
             "title": "Inputs",
@@ -176,7 +223,7 @@
     "meta": {
         "name": "splunk_conf26_demo",
         "restRoot": "splunk_conf26_demo",
-        "version": "0.0.0+e20cd0a",
+        "version": "1.0.0",
         "displayName": "Splunk .conf26 Demo",
         "schemaVersion": "0.0.10",
         "supportedThemes": [
