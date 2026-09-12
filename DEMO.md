@@ -206,6 +206,61 @@ Ask me any clarifying questions.
 
 ![Input interview](images/input_interview.png)
 
+# Debug an add-on
 
+## Install the Splunk Add-on for Microsoft Visual Studio Code 
+This is a supporting add-on that allows Visual Studio Code to connect to and debug the add-on's code running on a Splunk instance.  You'll get things like variable watchers, breakpoints, step into or over code, etc.
 
+https://splunkbase.splunk.com/app/4801
 
+## Open the folder of the thing you want to debug in $SPLUNK_HOME/etc/apps
+This is a bit of a weird step, but hang with me for a sec...
+
+* From a new VSCode instance/window, select File > Open Folder
+* Browse to $SPLUNK_HOME/etc/apps/splunk_conf26_demo
+
+:warning: If you open the files directly instead of the folder, it isn't going to work.  The reason is that the Splunk Add-on for Visual Studio Code needs to add a debug configuration in the root of your add-ons folder.
+
+## Insert your debug code
+Typically, you would add a few lines of code to the input you want to debug.  But, now, we can have the skill walk us through
+
+<details>
+<summary>Here are the lines of code if you are curious</summary>
+  
+```
+import sys, os
+sys.path.append(os.path.join(os.environ['SPLUNK_HOME'],'etc','apps','SA-VSCode','bin'))
+import splunk_debug as dbg
+dbg.enable_debugging(timeout=25)
+```
+
+</details>
+
+Sample prompt:
+
+```
+help me debug this add-on. I want to set a breakpoint at my current cursor location.
+```
+
+![Debug interview](images/debug_interview.png)
+
+![Debug code](images/debug_code.png)
+
+The debug lines were inserted into the add-on code, and the agent gives you the next steps.
+
+## Create an input, or stop/start an input to debug
+
+This step forces the add-on code to run on the Splunk side.  When the code hits those 4 lines of debug code, the add-on will pause for 25 seconds and wait for the debugger to attach.
+
+## Attach the debugger to the code
+
+The magic happens here.  
+
+* Go back to your VSCode instance that has the `$SPLUNK_HOME/etc/apps/splunk_conf26/demo` folder open
+* Set a breakpoint on a line of code
+* Click the debug icon
+* A debug profile named "Splunk Enterprise: Python Debugger" should have been created by the Splunk Add-on for Microsoft Visual Studio Code - select that
+* Press the "Start Debugging" icon next to the profile
+* If everything went according to plan, you should hit your breakpoint and now you have full debug capabilities
+
+![Debug profile](images/debug_profile.png)
