@@ -104,6 +104,8 @@ Notice some things that happened:
 * Updated `.gitignore` to ensure the `output` directory, `.venv` directory, and and resulting `tar.gz` distribution package are not checked into Git source control
 * Gave instructions for next steps
 
+:tv: [Video Walkthrough of building the add-on](https://youtu.be/Sc0NqxEaYiU)
+
 ## :warning: Python Version Warning
 If your Python version is 3.14.0 or above, the `.venv` environment created will not pull in the correct version of `ucc-gen`.  We need version `ucc-gen 6.6.0` for our demos.  If your Python version is 3.14.n, you won't get the right `ucc-gen` version and will get some `<TypeError>` messages when trying to use the add-on in Splunk.
 
@@ -208,6 +210,8 @@ Ask me any clarifying questions.
 
 ![Input interview](images/input_interview.png)
 
+:tv: [Video Walkthrough of adding an input to the add-on with an AI SKILL](https://youtu.be/GvVab-m5cW8)
+
 # Debug an add-on
 
 ## Install the Splunk Add-on for Microsoft Visual Studio Code 
@@ -273,3 +277,5 @@ The magic happens here.
 * If everything went according to plan, you should hit your breakpoint and now you have full debug capabilities!
 
 ![Debug profile](images/debug_profile.png)
+
+:tv: [Video Walkthrough of debugging the add-on with an AI SKILL](https://youtu.be/sYeQ6ZjJFWk)
