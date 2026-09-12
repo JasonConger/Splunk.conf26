@@ -125,11 +125,13 @@ source .venv/bin/activate
 
 </details>
 
-## (Optional) Create a symbolic link from output/splunk_conf26_demo $SPLUNK_HOME/etc/apps
+## (Optional) Create a symbolic link from output/splunk_conf26_demo to $SPLUNK_HOME/etc/apps
 
 I like to create a symbolic link so that the source code can live in a repo outside of my Splunk install. You could have your AI agent do this, but it is simple enough to not burn more tokens :smile:  
 
 Also, this way you don't have to copy/paste the contents of the `output` directory over and over as you build.
+
+HOWEVER - you will have to remove the symbolic link later and copy the add-on directly into `$SPLUNK_HOME/etc/apps` if you want to run the debugger.  There are reasons for this that we'll get into later.
 
 Example:
 
@@ -213,13 +215,21 @@ This is a supporting add-on that allows Visual Studio Code to connect to and deb
 
 https://splunkbase.splunk.com/app/4801
 
+## Remove the symbolic link if you created one
+Ok, so the Splunk Add-on for Microsoft Visual Studio Code will need to write some files to your add-on's root directory in order to create a debug configuration. But, the add-on cannot write files living outside of `$SPLUNK_HOME/etc/apps` by design. With a symbolic link, the root of your add-on is outside the bubble, so we'll need to move it in now.
+
+
 ## Open the folder of the thing you want to debug in $SPLUNK_HOME/etc/apps
-This is a bit of a weird step, but hang with me for a sec...
+
+> [!IMPORTANT]
+> **This is one of the most important steps.**
+> You have to open the root folder of your add-on in VSCode.
 
 * From a new VSCode instance/window, select `File > Open Folder`
 * Browse to `$SPLUNK_HOME/etc/apps/splunk_conf26_demo`
 
-:warning: If you open the files directly instead of the folder, it isn't going to work.  The reason is that the Splunk Add-on for Visual Studio Code needs to add a debug configuration in the root of your add-ons folder.
+> [!CAUTION]
+> If you open the files directly instead of the folder, it isn't going to work.  The reason is that the Splunk Add-on for Visual Studio Code needs to add a debug configuration in the root of your add-ons folder (see the note above in the "remove symbolic link section").
 
 ## Insert your debug code
 Typically, you would add a few lines of code to the input you want to debug.  But, now, we can have the skill walk us through
@@ -256,11 +266,10 @@ This step forces the add-on code to run on the Splunk side.  When the code hits 
 
 The magic happens here.  
 
-* Go back to your VSCode instance that has the `$SPLUNK_HOME/etc/apps/splunk_conf26/demo` folder open
-* Set a breakpoint on a line of code
+* Set a breakpoint on a line of code after the inserted debug code
 * Click the debug icon
 * A debug profile named "Splunk Enterprise: Python Debugger" should have been created by the Splunk Add-on for Microsoft Visual Studio Code - select that
 * Press the "Start Debugging" icon next to the profile
-* If everything went according to plan, you should hit your breakpoint and now you have full debug capabilities
+* If everything went according to plan, you should hit your breakpoint and now you have full debug capabilities!
 
 ![Debug profile](images/debug_profile.png)
