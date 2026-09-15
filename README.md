@@ -7,7 +7,10 @@ Companion material for Splunk .conf26 Session Dev1419
 * [Jason Green](https://www.linkedin.com/in/jason-t-green/)
 
 # Creating an add-on with AI
-The complete walkthrough shown during the presentation can be found in the [DEMO.md](DEMO.md) file. Follow along...
+The complete walkthrough shown during the presentation can be found in the [Demos/Add-ons/README.md](Demos/Add-ons/README.md) file. Follow along...
+
+# Creating dashboards with AI
+The complete walkthrough shown during the presentation can be found in the [Demos/Dashboards/README.md](Demos/Dashboards/README.md) file. Follow along...
 
 # Useful Links
 * [Visual Studio Code](https://code.visualstudio.com/) - cross platform, free, extensible
