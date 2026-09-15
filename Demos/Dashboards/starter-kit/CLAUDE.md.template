@@ -1,0 +1,112 @@
+# <Project name> — Splunk data dictionary
+
+<!--
+Copy this to CLAUDE.md in the directory you run Claude Code from. It loads
+automatically at the start of every session.
+
+This file is the single biggest lever on output quality. The model cannot see
+your data until it searches, and every search it has to run to rediscover a
+fact costs time and invites a wrong guess. Write down what you already know.
+
+Replace every <placeholder>. Delete sections that don't apply. Keep examples
+real — one genuine event beats a paragraph of description.
+-->
+
+## Environment
+
+| | |
+|---|---|
+| Platform | <Splunk Cloud (Victoria) / Splunk Enterprise> <version> |
+| MCP server | `splunk` in `.mcp.json` — **read-only** |
+| Write path | <REST via `scripts/splunk-rest.sh` / hand-installed .spl / none> |
+| Target app | `<ai_sandbox>` — write here only, never to `search` |
+| Dashboard type | <Dashboard Studio / React (SUIT) / custom viz> |
+
+## Where the data lives
+
+```spl
+index=<index> sourcetype=<sourcetype>
+```
+
+<If an index holds more than one event shape, say so here and give the filter
+for each. A query written for one shape silently excludes the other.>
+
+<If the sourcetype changed over time, list both and the date ranges. Pinning
+the newer one silently drops the older data.>
+
+## Event shape
+
+One real event, trimmed:
+
+```json
+<paste one representative event>
+```
+
+Extraction preamble:
+
+```spl
+index=<index>
+| spath <path.to.id>    output=<id>
+| spath <path.to.value> output=<value>
+| eval v=tonumber(<value>)
+```
+
+<Note type traps: numbers stored as strings, units that differ between
+sources (kW vs W), non-numeric sentinel values like "unknown".>
+
+## Time windows
+
+| Window | Use |
+|---|---|
+| <YYYY-MM-DD → YYYY-MM-DD> | <Main analysis window> |
+| <YYYY-MM-DD → YYYY-MM-DD> | **Gap — no data.** |
+
+**Always use absolute time ranges.** A relative range like `-24h` can land in a
+gap and render empty panels.
+
+## Summary rollups — read these, not the raw index
+
+<Measured cost: the same aggregation takes <N>s raw and <M>s from summary.
+Say the numbers — the model will choose the cheaper path when it can see the
+price.>
+
+```spl
+index=summary report=<rollup_name>    -- <rows>, one per <hour/day>
+```
+
+| Rollup | Fields | Use for |
+|---|---|---|
+| `<rollup_name>` | `<field>`, `<field>` | <questions it answers> |
+
+Go to the raw index only for detail the rollups don't carry.
+
+## Fields and entities
+
+| Field / entity | Unit | Notes |
+|---|---|---|
+| `<name>` | <unit> | <meaning, sign convention, resolution> |
+
+## Broken or misleading — do not use
+
+| Field / entity | Problem |
+|---|---|
+| `<name>` | <constant zero / stuck value / counter reset on YYYY-MM-DD> |
+
+## Known anomalies (real — don't clean them away)
+
+1. <date range — what happened, confirmed how>
+
+## Off limits
+
+<List indexes on the same instance that this work must never query — personal,
+regulated or other teams' data. The agent can reach everything your role can.>
+
+- `index=<sensitive_index>` — <why>
+
+## Rules for the agent
+
+- Validate every panel search against the instance and report its row count
+  before building the dashboard around it.
+- Never write to Splunk (REST, app install, saved searches) without asking first.
+- No alert actions that notify people (email, webhook) unless explicitly asked.
+- Prefer summary rollups; stop and ask before any search expected to run > 60s.

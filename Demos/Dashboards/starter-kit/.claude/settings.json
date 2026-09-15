@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "ask": [
+      "Bash(*splunk-rest.sh create-dashboard*)",
+      "Bash(*package-app.sh*)",
+      "Bash(curl *)",
+      "Bash(npx skills add *)"
+    ],
+    "deny": [
+      "Bash(*splunk-rest.sh delete-dashboard*)",
+      "Bash(*-X DELETE*)",
+      "Bash(*--request DELETE*)",
+      "Bash(printenv*)",
+      "Bash(env)",
+      "Bash(*echo *TOKEN*)",
+      "Bash(*echo *SECRET*)",
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Read(**/*.token)",
+      "Read(**/*token*.txt)",
+      "Edit(**/.env)",
+      "Edit(**/.env.*)"
+    ]
+  }
+}

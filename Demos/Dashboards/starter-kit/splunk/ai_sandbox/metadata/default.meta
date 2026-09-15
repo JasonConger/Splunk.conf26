@@ -1,0 +1,7 @@
+# Everyone can read the app; only admins and the ai_agent role can write to it.
+# sc_admin must be listed for Splunk Cloud, or admins there can't manage content.
+# export = none keeps AI-generated objects scoped to this app until promoted.
+
+[]
+access = read : [ * ], write : [ admin, sc_admin, ai_agent ]
+export = none

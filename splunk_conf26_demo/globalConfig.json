@@ -109,57 +109,22 @@
                             "help": "Account to use for this input.",
                             "field": "account",
                             "required": true
+                        },
+                        {
+                            "type": "text",
+                            "label": "Endpoint",
+                            "field": "endpoint",
+                            "help": "The API endpoint to retrieve data from.",
+                            "validators": [
+                                {
+                                    "type": "url",
+                                    "errorMsg": "Endpoint must be a valid URL."
+                                }
+                            ]
                         }
                     ],
                     "inputHelperModule": "test_input_helper",
                     "title": "test_input"
-                },
-                {
-                    "name": "fake_rest_posts",
-                    "entity": [
-                        {
-                            "type": "text",
-                            "label": "Name",
-                            "validators": [
-                                {
-                                    "type": "regex",
-                                    "errorMsg": "Input Name must begin with a letter and consist exclusively of alphanumeric characters and underscores.",
-                                    "pattern": "^[a-zA-Z]\\w*$"
-                                },
-                                {
-                                    "type": "string",
-                                    "errorMsg": "Length of input name should be between 1 and 100",
-                                    "minLength": 1,
-                                    "maxLength": 100
-                                }
-                            ],
-                            "field": "name",
-                            "help": "A unique name for the data input.",
-                            "required": true
-                        },
-                        {
-                            "type": "interval",
-                            "label": "Interval",
-                            "defaultValue": "300",
-                            "field": "interval",
-                            "options": {
-                                "range": [
-                                    10,
-                                    31536000
-                                ]
-                            },
-                            "help": "Time interval of the data input, in seconds.",
-                            "required": true
-                        },
-                        {
-                            "type": "index",
-                            "field": "index",
-                            "label": "Index"
-                        }
-                    ],
-                    "inputHelperModule": "fake_rest_posts_helper",
-                    "title": "Fake REST Posts",
-                    "description": "Ingests posts from the JSONPlaceholder fake REST API (https://jsonplaceholder.typicode.com/posts)."
                 }
             ],
             "title": "Inputs",

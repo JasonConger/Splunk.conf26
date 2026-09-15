@@ -1,0 +1,221 @@
+{
+  "title": "Platform health",
+  "description": "Is this Splunk instance healthy right now? Errors, scheduler reliability, and where the errors come from. Reads index=_internal, so it works on any instance.",
+  "inputs": {},
+  "defaults": {},
+  "dataSources": {
+    "ds_errors": {
+      "type": "ds.search",
+      "name": "splunkd errors, 24h",
+      "options": {
+        "query": "index=_internal sourcetype=splunkd log_level=ERROR\n| stats count as errors",
+        "queryParameters": {
+          "earliest": "-24h",
+          "latest": "now"
+        }
+      }
+    },
+    "ds_scheduler_base": {
+      "type": "ds.search",
+      "name": "Scheduler outcomes, 24h",
+      "options": {
+        "query": "index=_internal sourcetype=scheduler status=*\n| stats count(eval(status==\"success\")) as succeeded, count(eval(status==\"skipped\")) as skipped, count as total",
+        "queryParameters": {
+          "earliest": "-24h",
+          "latest": "now"
+        }
+      }
+    },
+    "ds_success_pct": {
+      "type": "ds.chain",
+      "name": "Scheduler success %",
+      "options": {
+        "extend": "ds_scheduler_base",
+        "query": "| eval success_pct=round(100*succeeded/total,2)\n| fields success_pct"
+      }
+    },
+    "ds_skipped": {
+      "type": "ds.chain",
+      "name": "Skipped runs",
+      "options": {
+        "extend": "ds_scheduler_base",
+        "query": "| fields skipped"
+      }
+    },
+    "ds_errors_by_hour": {
+      "type": "ds.search",
+      "name": "Errors and warnings by hour",
+      "options": {
+        "query": "index=_internal sourcetype=splunkd log_level IN (ERROR, WARN)\n| timechart span=1h count by log_level",
+        "queryParameters": {
+          "earliest": "-24h",
+          "latest": "now"
+        }
+      }
+    },
+    "ds_errors_by_component": {
+      "type": "ds.search",
+      "name": "Top error components",
+      "options": {
+        "query": "index=_internal sourcetype=splunkd log_level=ERROR\n| stats count by component\n| sort - count\n| head 8",
+        "queryParameters": {
+          "earliest": "-24h",
+          "latest": "now"
+        }
+      }
+    }
+  },
+  "visualizations": {
+    "viz_intro": {
+      "type": "splunk.markdown",
+      "options": {
+        "fontSize": "default",
+        "markdown": "# Platform health\n**Last 24 hours, from `index=_internal`.** A worked example for the starter kit: three headline numbers, one trend, one ranking. The scheduler panels share one base search through `ds.chain` — one search job, two panels."
+      }
+    },
+    "viz_errors": {
+      "type": "splunk.singlevalue",
+      "title": "splunkd errors, last 24h",
+      "dataSources": {
+        "primary": "ds_errors"
+      },
+      "options": {
+        "majorFontSize": 44,
+        "numberPrecision": 0,
+        "trendDisplay": "off",
+        "sparklineDisplay": "off"
+      }
+    },
+    "viz_success_pct": {
+      "type": "splunk.singlevalue",
+      "title": "Scheduled searches that ran",
+      "dataSources": {
+        "primary": "ds_success_pct"
+      },
+      "options": {
+        "majorFontSize": 44,
+        "numberPrecision": 2,
+        "unit": "%",
+        "unitPosition": "after",
+        "trendDisplay": "off",
+        "sparklineDisplay": "off"
+      }
+    },
+    "viz_skipped": {
+      "type": "splunk.singlevalue",
+      "title": "Scheduled runs skipped",
+      "dataSources": {
+        "primary": "ds_skipped"
+      },
+      "options": {
+        "majorFontSize": 44,
+        "numberPrecision": 0,
+        "underLabel": "usually a concurrency limit",
+        "trendDisplay": "off",
+        "sparklineDisplay": "off"
+      }
+    },
+    "viz_errors_by_hour": {
+      "type": "splunk.line",
+      "title": "Are errors rising? splunkd errors and warnings by hour",
+      "dataSources": {
+        "primary": "ds_errors_by_hour"
+      },
+      "options": {
+        "xAxisTitleText": "hour",
+        "yAxisTitleText": "events",
+        "legendDisplay": "bottom",
+        "nullValueDisplay": "zero",
+        "seriesColorsByField": {
+          "ERROR": "#C2323C",
+          "WARN": "#C2620A"
+        }
+      }
+    },
+    "viz_errors_by_component": {
+      "type": "splunk.bar",
+      "title": "Where do the errors come from? Top components",
+      "dataSources": {
+        "primary": "ds_errors_by_component"
+      },
+      "options": {
+        "yAxisTitleText": "errors, last 24h",
+        "legendDisplay": "off",
+        "seriesColors": [
+          "#C2323C"
+        ]
+      }
+    }
+  },
+  "layout": {
+    "type": "absolute",
+    "options": {
+      "width": 1440,
+      "height": 1000,
+      "display": "auto"
+    },
+    "structure": [
+      {
+        "item": "viz_intro",
+        "type": "block",
+        "position": {
+          "x": 20,
+          "y": 20,
+          "w": 1400,
+          "h": 110
+        }
+      },
+      {
+        "item": "viz_errors",
+        "type": "block",
+        "position": {
+          "x": 20,
+          "y": 150,
+          "w": 453,
+          "h": 170
+        }
+      },
+      {
+        "item": "viz_success_pct",
+        "type": "block",
+        "position": {
+          "x": 493,
+          "y": 150,
+          "w": 453,
+          "h": 170
+        }
+      },
+      {
+        "item": "viz_skipped",
+        "type": "block",
+        "position": {
+          "x": 966,
+          "y": 150,
+          "w": 454,
+          "h": 170
+        }
+      },
+      {
+        "item": "viz_errors_by_hour",
+        "type": "block",
+        "position": {
+          "x": 20,
+          "y": 340,
+          "w": 1400,
+          "h": 320
+        }
+      },
+      {
+        "item": "viz_errors_by_component",
+        "type": "block",
+        "position": {
+          "x": 20,
+          "y": 680,
+          "w": 1400,
+          "h": 300
+        }
+      }
+    ],
+    "globalInputs": []
+  }
+}

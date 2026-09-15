@@ -1,0 +1,144 @@
+# Household energy — Splunk data dictionary
+
+<!--
+A completed example of starter-kit/CLAUDE.md.template, adapted from the demo
+this guide came from. Identifiers are anonymised; the structure, the traps and
+the numbers are real.
+
+Notice what earns its place here: every section exists because an agent
+without it produced a wrong answer, a slow search or an empty panel.
+-->
+
+## Environment
+
+| | |
+|---|---|
+| Platform | Splunk Cloud (Victoria) 10.5 |
+| MCP server | `splunk` in `.mcp.json` — **read-only** |
+| Write path | REST via `scripts/splunk-rest.sh`, into `ai_sandbox` only |
+| Dashboard type | Dashboard Studio for panels; React only for the live board |
+
+## Where the data lives
+
+```spl
+index=energy
+```
+
+Home Assistant telemetry, shipped via Node-RED. **Two unrelated event shapes
+share this index:**
+
+1. **Home Assistant `state_changed`** — everything with an `entity_id`.
+2. **OpenWeatherMap** — matched by `"message.title"="Current Weather Information"`.
+   No `entity_id`.
+
+An `entity_id`-based query silently excludes all weather.
+
+**Do not pin `sourcetype`.** The first three weeks arrived as `_json`, the rest
+as `ha_json`. Pinning `ha_json` silently drops them.
+
+## Event shape
+
+```json
+{"message":{"payload":{
+  "entity_id":"sensor.p1_meter_active_power",
+  "state":"164.0",
+  "attributes":{"unit_of_measurement":"W","device_class":"power"},
+  "last_updated":"2026-06-12T23:43:35.538463+00:00"},
+  "topic":"state_changed"}}
+```
+
+```spl
+index=energy
+| spath message.payload.entity_id output=entity
+| spath message.payload.state     output=state
+| eval v=tonumber(state)
+```
+
+`state` is always a string. `"unknown"`, `"unavailable"` and `"on"` return
+null from `tonumber` — filter with `where isnotnull(v)` for numeric work.
+
+## Time windows
+
+| Window | Use |
+|---|---|
+| **2026-01-01 → 2026-06-20** | Analysis window. No gaps, 80–100k events/day. |
+| 2026-06-13 → 2026-09-09 | **Gap — feed down.** |
+| 2026-09-09 → now | Live. Good for "right now" panels only. |
+
+**Always use absolute time ranges for analysis.** `-30d` lands in the gap.
+
+## Summary rollups — read these, not the raw index
+
+Measured: an hour-of-day profile over the raw index scans **5.3M events in
+38s**; monthly counter deltas scan **13.9M in 53s**. The full analysis takes
+**162s raw and 5.6s from these rollups.** The MCP search tool stops at 60s.
+
+```spl
+index=summary report=energy_daily     -- ~170 rows, one per day
+index=summary report=energy_hourly    -- ~3,900 rows, one per hour
+```
+
+| Rollup | Fields | Use for |
+|---|---|---|
+| `energy_daily` | `solar_kwh`, `import_kwh`, `export_kwh`, `gas_m3` | Monthly balance, self-consumption, self-sufficiency |
+| `energy_hourly` | `solar_w`, `grid_w`, `consumption_w` (means); `washer_kwh`, `dryer_kwh`, `heating_kwh` (sums); `dishwasher_runs` | Hour-of-day profile, surplus windows, appliance timing, anomalies |
+
+`grid_w` is **negative when exporting**. Surplus = `solar_w - consumption_w`.
+
+Validated against raw: January reads 46.3 kWh solar / 464.3 import / 6.7
+export / 210.4 m³ gas from both paths.
+
+## Fields and entities
+
+| Entity | Unit | Notes |
+|---|---|---|
+| `sensor.p1_meter_active_power` | W | Net grid power. **Negative = exporting.** ~5s resolution. |
+| `sensor.p1_meter_total_power_import` / `_export` | kWh | Cumulative — use deltas. |
+| `sensor.p1_meter_total_gas` | m³ | Cumulative. |
+| `sensor.solar_current_power_production` | **kW** | Not W — multiply by 1000 before comparing with the meter. |
+| `sensor.solar_lifetime_energy_production` | **MWh** | Cumulative. |
+| `sensor.washer_deltaenergy` / `sensor.dryer_deltaenergy` | kWh | Per interval. Sparse — emits on change only. |
+| `sensor.washer_machine_state` / `sensor.dryer_machine_state` | | `run` / `stop` — use for cycle start and duration. |
+| `sensor.dishwasher_operation_state` | | `ready → delayedstart → run → finished`. No energy sensor. |
+| `sensor.attic_front_energy` / `sensor.attic_back_energy` | kWh | Electric heating, per interval. |
+
+Weather (OpenWeatherMap shape) — use `message.payload`, pre-converted and flat:
+
+```spl
+index=energy "message.title"="Current Weather Information"
+| spath message.payload.clouds output=cloud_pct
+| spath message.payload.tempc  output=temp_c
+| spath message.payload.weather output=condition
+```
+
+`message.data.*` holds the same values raw — temperature in **Kelvin**.
+
+## Broken or misleading — do not use
+
+| Entity | Problem |
+|---|---|
+| `sensor.washer_power`, `sensor.dryer_power` | Constant zero on every event. Use `*_machine_state` for runs. |
+| `sensor.solar_energy_production_today` | Valid until 2026-06-09, then reports the **lifetime** total. |
+| `weather.local_station`, `sensor.local_station_*` | `"cloudy"` / `"unknown"` on every event. Use the OpenWeatherMap events. |
+
+## Known anomalies (real — don't clean them away)
+
+1. **2026-05-24 → 2026-05-29 (not 28th):** overnight grid draw ~1.8 kW against a
+   normal 250–450 W. ~121 kWh extra import. Unexplained.
+2. **Clear days that underperform:** 2026-05-29 had 8% cloud and 645 W mean
+   solar; comparable days reach ~1,000 W. Candidate shading or inverter fault.
+
+## Off limits
+
+The same instance holds personal data unrelated to this work. Do not query:
+
+- `index=personal_devices` — health and sleep data
+- anything under the `home_network` sensor source
+
+## Rules for the agent
+
+- Validate every panel search via MCP and report row count and runtime before
+  building on it.
+- Never write to Splunk without asking. Deploy only to `ai_sandbox`.
+- No alert actions that notify anyone. Alerts track in Triggered Alerts only.
+- Prefer the rollups. Ask before any raw search expected to exceed 60s.
