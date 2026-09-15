@@ -141,7 +141,9 @@ Example:
 
 Real example (from my Mac):
 
-`ln -s ~/Dev/Splunk.conf26/output/splunk_conf26_demo /Applications/Splunk/etc/apps/splunk_conf26_demo`
+```
+ln -s ~/Dev/Splunk.conf26/output/splunk_conf26_demo /Applications/Splunk/etc/apps/splunk_conf26_demo
+```
 
 ## View the UI `ucc-gen` created in VSCode
 
