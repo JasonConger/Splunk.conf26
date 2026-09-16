@@ -149,7 +149,7 @@ ln -s ~/Dev/Splunk.conf26/output/splunk_conf26_demo /Applications/Splunk/etc/app
 
 The UI for UCC add-ons is defined in a file named `globalConfig.json`.  It isn't horrible to read the json, but right-click on the file in VSCode, choose "Preview globalConfig.json" to see changes in real time as you make changes
 
-![Preview globalConfig.json](images/preview_globalConfig.png)
+![Preview globalConfig.json](../../images/preview_globalConfig.png)
 
 ## Add a field to the input
 
@@ -168,7 +168,7 @@ The VSCode extension ships with several snippets you can use in `globalConfig.js
 * `entity-multi-select`
 * `entity-help-link`
 
-![Entity Snippet](images/input_entity.png)
+![Entity Snippet](../../images/input_entity.png)
 
 
 ### Method 3 - use a skill
@@ -210,7 +210,7 @@ I want you to create a new input in this add-on to ingest the data from this end
 Ask me any clarifying questions.
 ```
 
-![Input interview](images/input_interview.png)
+![Input interview](../../images/input_interview.png)
 
 :tv: [Video Walkthrough of adding an input to the add-on with an AI SKILL](https://youtu.be/GvVab-m5cW8)
 
@@ -258,9 +258,9 @@ Sample prompt:
 help me debug this add-on. I want to set a breakpoint at my current cursor location.
 ```
 
-![Debug interview](images/debug_interview.png)
+![Debug interview](../../images/debug_interview.png)
 
-![Debug code](images/debug_code.png)
+![Debug code](../../images/debug_code.png)
 
 The debug lines were inserted into the add-on code, and the agent gives you the next steps.
 
@@ -278,6 +278,6 @@ The magic happens here.
 * Press the "Start Debugging" icon next to the profile
 * If everything went according to plan, you should hit your breakpoint and now you have full debug capabilities!
 
-![Debug profile](images/debug_profile.png)
+![Debug profile](../../images/debug_profile.png)
 
 :tv: [Video Walkthrough of debugging the add-on with an AI SKILL](https://youtu.be/sYeQ6ZjJFWk)
